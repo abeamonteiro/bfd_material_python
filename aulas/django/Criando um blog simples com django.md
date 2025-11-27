@@ -90,3 +90,28 @@ class Post(models.Model):
 `python manage.py makemigrations blog`
 - Aplicando as modificações no banco de dados
 `python manage.py migrate blog`
+
+#### Atualizando o django admin
+- No arquivo `blog/admin.py` adicione:
+
+```python
+from django.contrib import admin
+from .models import Post
+
+admin.site.register(Post)
+```
+
+## URLs no Django
+- Abra o arquivo `urls.py` do projeto.
+
+#### Criando a URL do blog
+
+```python
+from django.contrib import admin
+from django.urls import path, include
+
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('', include('blog.urls')),
+]
+```
