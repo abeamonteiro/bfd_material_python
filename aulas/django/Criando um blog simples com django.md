@@ -156,6 +156,18 @@ Post.objects.all()
 
 - Vamos criar uma postagem:
 ```python
-Post.objects.create(author=Fred)
+Post.objects.create(author="Fred", title="Testando ORM", text="Vamos testar o ORM do Django!!!")
 ```
 ### Filtrando dados
+
+`Post.objects.filter(author=2)`
+
+`Post.objects.filter(title__contains='ORM')`
+
+### Ordenando dados
+`Post.objects.order_by('create_date)`
+
+### Publicando uma postagem
+`post = Post.objects.filter(title__contains='ORM')`
+
+`post.publish()`
