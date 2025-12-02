@@ -90,3 +90,84 @@ class Post(models.Model):
 `python manage.py makemigrations blog`
 - Aplicando as modificações no banco de dados
 `python manage.py migrate blog`
+
+#### Atualizando o django admin
+- No arquivo `blog/admin.py` adicione:
+
+```python
+from django.contrib import admin
+from .models import Post
+
+admin.site.register(Post)
+```
+
+## URLs no Django
+- Abra o arquivo `urls.py` do projeto.
+
+#### Criando a URL do blog
+
+```python
+from django.contrib import admin
+from django.urls import path, include
+
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('', include('blog.urls')),
+]
+```
+
+## Criando as views
+- Abra o arquivo `views.py`
+- Adicione:
+
+```python
+def post_list(request):
+    return render(request, 'blog/post_list.html', {})
+```
+
+## Brincando com HTML
+
+- Dentro do Diretório da aplicação `Blog`, crie um diretório `templates` e dentro dele outro diretório chamado `blog`
+- Agora crie o arquivo `post_list.html` dentro do diretório `blog/templates/blog`
+- Vamos alimentar o arquivo com um pouco de HTML:
+```html
+<html>
+    <body>
+        <p>Olá Mundo!</p>
+    </body>
+</html>
+```
+
+## Django ORM
+- Vamos entender como funciona a comunicação do Django com o banco de dados.
+- Vamos iniciar um shell do Django:
+`python manage.py shell`
+- Vamos acessar os posts criados:
+`Post.objects.all()
+- Um erro ocorre pois o Django não conhece `Post` vamos precisar importa-lo.
+
+```python
+from blog.models import Post
+Post.objects.all()
+```
+- Se quizermos visualizar os usuários?
+
+`User.objects.all()`
+
+- Vamos criar uma postagem:
+```python
+Post.objects.create(author="Fred", title="Testando ORM", text="Vamos testar o ORM do Django!!!")
+```
+### Filtrando dados
+
+`Post.objects.filter(author=2)`
+
+`Post.objects.filter(title__contains='ORM')`
+
+### Ordenando dados
+`Post.objects.order_by('create_date)`
+
+### Publicando uma postagem
+`post = Post.objects.filter(title__contains='ORM')`
+
+`post.publish()`
