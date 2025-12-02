@@ -115,3 +115,47 @@ urlpatterns = [
     path('', include('blog.urls')),
 ]
 ```
+
+## Criando as views
+- Abra o arquivo `views.py`
+- Adicione:
+
+```python
+def post_list(request):
+    return render(request, 'blog/post_list.html', {})
+```
+
+## Brincando com HTML
+
+- Dentro do Diretório da aplicação `Blog`, crie um diretório `templates` e dentro dele outro diretório chamado `blog`
+- Agora crie o arquivo `post_list.html` dentro do diretório `blog/templates/blog`
+- Vamos alimentar o arquivo com um pouco de HTML:
+```html
+<html>
+    <body>
+        <p>Olá Mundo!</p>
+    </body>
+</html>
+```
+
+## Django ORM
+- Vamos entender como funciona a comunicação do Django com o banco de dados.
+- Vamos iniciar um shell do Django:
+`python manage.py shell`
+- Vamos acessar os posts criados:
+`Post.objects.all()
+- Um erro ocorre pois o Django não conhece `Post` vamos precisar importa-lo.
+
+```python
+from blog.models import Post
+Post.objects.all()
+```
+- Se quizermos visualizar os usuários?
+
+`User.objects.all()`
+
+- Vamos criar uma postagem:
+```python
+Post.objects.create(author=Fred)
+```
+### Filtrando dados
